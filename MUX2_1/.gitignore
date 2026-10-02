@@ -1,0 +1,7 @@
+# QuestaSim generated files - rebuilt by "do run.do"
+work/
+*.wlf
+transcript
+modelsim.ini
+*.vstf
+wlft*

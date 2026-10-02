@@ -1,22 +1,38 @@
-# MUX2_1 — 4-bit 2-to-1 Multiplexer
+QuestaSim — Verilog Designs & Testbenches
 
-`Z = (S == 0) ? A : B`, where A, B and Z are 4 bits wide.
+A collection of digital design blocks written in Verilog, each with a self-checking testbench and a ready-to-run QuestaSim script.
 
-| File | Description |
-|------|-------------|
-| `Mux_2to1.v` | RTL (behavioural `always @(*)` + `assign`) |
-| `tb_Mux_2to1.v` | Self-checking testbench, all 512 combinations of A, B, S |
-| `run.do` | QuestaSim script: compile, simulate, add waves |
+The aim is to build up from basic combinational blocks to larger sequential designs, verifying every one properly rather than just checking that it compiles.
 
-## Run in QuestaSim
+Designs
+Folder	Design	Type	Verification
+MUX2_1	4-bit 2-to-1 multiplexer	Combinational	Exhaustive, 512 cases, self-checking
 
-```
-cd <path-to>/MUX2_1
+Folder layout
+
+Each design folder follows the same structure:
+
+<Design>/
+├── <Design>.v        RTL
+├── tb_<Design>.v     Self-checking testbench
+├── run.do            QuestaSim script
+├── README.md         Function, design notes, how to run
+└── .gitignore        Keeps simulator output out of the repo
+Running any design
+
+Open QuestaSim, then in the Transcript:
+
+tcl
+cd D:/path/to/QuestaSim/<Design>
 do run.do
-```
 
-Expected end of the transcript:
+Every testbench ends with a single PASS or FAIL line.
 
-```
----- PASS: all 512 combinations correct ----
-```
+Verification principles used here
+Self-checking: each testbench compares the design against a reference model automatically.
+X-aware compares with !==, so unknown values count as failures.
+Exhaustive testing where the input space is small; directed and random tests where it isn't.
+A clean compile isn't a pass: every design is simulated before it's committed.
+Tools
+
+QuestaSim 10.7c · Verilog-2001 · Xilinx Vivado: 2022
